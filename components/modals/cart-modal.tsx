@@ -26,6 +26,7 @@ const CartModal = () => {
       removeItem(item.id);
     }
   };
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -47,7 +48,7 @@ const CartModal = () => {
                   : items.length + " items"
               } in your cart`}</DialogDescription>
             </DialogHeader>
-            <div className="flex justify-between items-center">
+            <div className="grid grid-cols-3 text-center items-center">
               <h3>Product</h3>
               <h3>Quantity</h3>
               <h3>Remove</h3>
@@ -56,7 +57,10 @@ const CartModal = () => {
         )}
         <div>
           {items.map((item) => (
-            <div key={item.id} className="flex items-center justify-between">
+            <div
+              key={item.id}
+              className="grid grid-cols-3 justify-center items-center"
+            >
               <div className="flex items-end gap-2">
                 <Image
                   width={50}
@@ -70,14 +74,17 @@ const CartModal = () => {
                   <h4>{item.name}</h4>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center">
                 <Input
                   type="number"
                   value={item.quantity}
                   onChange={(e) => updateQuantity(e, item)}
                 />
               </div>
-              <Trash className="transition-all hover:text-red-500 hover:scale-110 cursor-pointer" />
+              <Trash
+                onClick={() => removeItem(item.id)}
+                className="w-full transition-all hover:text-red-500 hover:scale-110 cursor-pointer"
+              />
             </div>
           ))}
         </div>

@@ -1,15 +1,9 @@
 import { create } from "zustand";
-
-export interface LoveItem {
-  id: string;
-  name: string;
-  price: number;
-  src: string;
-}
+import { CartItem } from "./use-cart-store";
 
 interface LoveListStore {
-  items: LoveItem[];
-  addItem: (item: LoveItem) => void;
+  items: CartItem[];
+  addItem: (item: CartItem) => void;
   removeItem: (itemId: string) => void;
 }
 
@@ -18,6 +12,6 @@ export const useLoveListStore = create<LoveListStore>((set) => ({
   addItem: (item) => set((state) => ({ items: [...state.items, item] })),
   removeItem: (itemId) =>
     set((state) => ({
-      items: state.items.filter((cartItem) => cartItem.id !== itemId),
+      items: state.items.filter((loveItem) => loveItem.id !== itemId),
     })),
 }));

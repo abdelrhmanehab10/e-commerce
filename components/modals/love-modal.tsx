@@ -21,11 +21,13 @@ const LoveModal = () => {
   const { addItem } = useCartStore();
   const { toast } = useToast();
 
-  const addItemHandler = (prod: any) => {
+  const addItemHandler = (prod: CartItem) => {
+    console.log(prod);
+
     addItem({
       id: prod.id,
-      name: prod.label,
-      price: prod.sale,
+      name: prod.name,
+      price: prod.price,
       src: prod.src,
       quantity: 1,
     });
@@ -78,7 +80,10 @@ const LoveModal = () => {
                   onClick={() => addItemHandler(item)}
                   className="transition hover:scale-110 cursor-pointer"
                 />
-                <MinusSquare className="transition-all hover:text-red-500 hover:scale-110 cursor-pointer" />
+                <MinusSquare
+                  onClick={() => removeItem(item.id)}
+                  className="transition-all hover:text-red-500 hover:scale-110 cursor-pointer"
+                />
               </div>
             </div>
           ))}
