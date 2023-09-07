@@ -89,9 +89,8 @@ const Products = () => {
       </header>
       <main className="flex flex-col items-center gap-5 md:w-2/3 md:mx-auto md:grid md:grid-cols-4">
         {featuredProducts.map((prod) => (
-          <div>
+          <div  key={prod.label}>
             <div
-              key={prod.label}
               className="relative w-fit cursor-pointer mb-2"
             >
               <Image

@@ -36,7 +36,7 @@ const Navbar = () => {
 
       <ul className="md:flex md:gap-10 hidden">
         {routes.map((route) => (
-          <li className="transition hover:text-[#23A6F0]">
+          <li className="transition hover:text-[#23A6F0]" key={route.label}>
             <Link href={route.path}>{route.label}</Link>
           </li>
         ))}
