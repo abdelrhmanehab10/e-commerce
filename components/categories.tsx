@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const categories = [
@@ -8,14 +9,6 @@ const categories = [
   {
     src: "/categories/2.png",
     label: "Women",
-  },
-  {
-    src: "/categories/3.png",
-    label: "Accessories",
-  },
-  {
-    src: "/categories/4.png",
-    label: "Kids",
   },
 ];
 
@@ -28,7 +21,7 @@ const Categories = () => {
           Problems trying to resolve the conflict between{" "}
         </p>
       </header>
-      <main className="flex flex-col items-center gap-5">
+      <main className="flex flex-col items-center gap-5 md:justify-center md:flex-row md:w-2/3 md:mx-auto">
         {categories.map((cat) => (
           <div key={cat.label} className="relative w-fit cursor-pointer">
             <Image

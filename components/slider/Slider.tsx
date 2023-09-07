@@ -24,14 +24,14 @@ const Slider = () => {
       modules={[Pagination, Navigation]}
       className="h-[85vh] text-white"
     >
-      <SwiperSlide className="bg-[url(/slider/1.jpg)] bg-right bg-cover">
-        <div className="text-center h-full flex flex-col justify-center items-center">
+      <SwiperSlide className="bg-[url(/slider/1.jpg)] bg-right md:bg-top bg-cover">
+        <div className="text-center md:text-left h-full flex flex-col justify-center items-center md:items-start md:ml-36">
           <h5 className="uppercase text-sm font-semibold">Summer 2020</h5>
           <h1 className="uppercase text-4xl py-3 font-bold">New Collection</h1>
           <p className="w-2/3 pb-5 font-light">
             We know how large objects will act, but things on a small scale
           </p>
-          <Button className="bg-[#2DC071] text-lg font-semibold">
+          <Button className="bg-[#2DC071] hover:bg-[#2DC071]/80 text-lg font-semibold">
             Shop Now
           </Button>
         </div>
@@ -42,7 +42,7 @@ const Slider = () => {
           <p className="w-2/3 pb-5 font-light">
             We know how large objects will act, but things on a small scale
           </p>
-          <Button className="bg-[#2DC071] text-lg font-semibold">
+          <Button className="bg-[#2DC071] hover:bg-[#2DC071]/80 text-lg font-semibold">
             Start Now
           </Button>
         </div>

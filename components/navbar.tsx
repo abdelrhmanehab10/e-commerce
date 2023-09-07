@@ -1,21 +1,10 @@
-"use client";
-
-import { Search, ShoppingCart, Menu } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
+import { Heart, Search, ShoppingCart, User } from "lucide-react";
+import DropdownMenu from "./dropdown-menu";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import CartModal from "@/components/modals/cart-modal";
+import LoveModal from "./modals/love-modal";
 
 const Navbar = () => {
-  const router = useRouter();
-  const pathname = usePathname();
   const routes = [
     {
       label: "Home",
@@ -44,43 +33,37 @@ const Navbar = () => {
         "
     >
       <h1 className="font-bold text-xl">SwiftMarket</h1>
+
+      <ul className="md:flex md:gap-10 hidden">
+        {routes.map((route) => (
+          <li className="transition hover:text-[#23A6F0]">
+            <Link href={route.path}>{route.label}</Link>
+          </li>
+        ))}
+      </ul>
+
       <ul
         className="
           flex
           gap-4
+          md:text-[#23A6F0]
         "
       >
-        <li>
-          <Search />
+        <li className="hidden md:flex md:gap-1 text-xs items-center font-bold cursor-pointer">
+          <User className="w-5 h-5 hover:scale-105 transition" /> Login /
+          Register
         </li>
-        <li>
-          <ShoppingCart />
+        <li className="cursor-pointer">
+          <Search className="w-5 h-5 hover:scale-105 transition" />
         </li>
-        <li>
-          <Sheet>
-            <SheetTrigger>
-              <Menu />
-            </SheetTrigger>
-            <SheetContent side="top">
-              <ul className="text-center flex flex-col gap-5">
-                {routes.map((route) => (
-                  <li
-                    key={route.label}
-                    className={cn(
-                      pathname === route.path && "font-bold text-[#2DC071]"
-                    )}
-                  >
-                    <Link
-                      onClick={() => router.push(route.path)}
-                      href={route.path}
-                    >
-                      {route.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </SheetContent>
-          </Sheet>
+        <li className="cursor-pointer">
+          <CartModal />
+        </li>
+        <li className="md:hidden">
+          <DropdownMenu />
+        </li>
+        <li className="cursor-pointer">
+          <LoveModal />
         </li>
       </ul>
     </nav>

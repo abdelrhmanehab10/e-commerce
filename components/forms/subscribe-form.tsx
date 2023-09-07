@@ -2,14 +2,14 @@
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
+  Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "../ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
@@ -29,23 +29,27 @@ const SubscribeForm = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
   };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex justify-start my-3">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input placeholder="Your Email" {...field} />
               </FormControl>
+              <FormDescription className="self-end">
+                Lorem, ipsum dolor.
+              </FormDescription>
             </FormItem>
           )}
         />
-        <Button type="submit">Subscribe</Button>
-        <FormDescription>Lorem, ipsum dolor.</FormDescription>
+        <Button type="submit" className="rounded-l-none bg-[#23A6F0]">
+          Subscribe
+        </Button>
       </form>
     </Form>
   );

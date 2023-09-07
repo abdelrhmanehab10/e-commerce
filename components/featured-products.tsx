@@ -1,8 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { Eye, Heart, Plus } from "lucide-react";
+import { useCartStore } from "@/hooks/use-cart-store";
+import { v4 as uuidv4 } from "uuid";
+import { useToast } from "./ui/use-toast";
+import { useLoveListStore } from "@/hooks/use-love-list-store";
 
 const featuredProducts = [
   {
+    id: uuidv4(),
     src: "/products/1.png",
     label: "Graphic Design",
     description: "English Department",
@@ -10,6 +18,7 @@ const featuredProducts = [
     sale: 6.48,
   },
   {
+    id: uuidv4(),
     src: "/products/2.png",
     label: "Graphic Design",
     description: "English Department",
@@ -17,6 +26,7 @@ const featuredProducts = [
     sale: 6.48,
   },
   {
+    id: uuidv4(),
     src: "/products/3.png",
     label: "Graphic Design",
     description: "English Department",
@@ -24,6 +34,7 @@ const featuredProducts = [
     sale: 6.48,
   },
   {
+    id: uuidv4(),
     src: "/products/4.png",
     label: "Graphic Design",
     description: "English Department",
@@ -32,7 +43,39 @@ const featuredProducts = [
   },
 ];
 
+interface productItem {
+  id: string;
+  label: string;
+  sale: number;
+  src: string;
+}
+
 const Products = () => {
+  const { addItem } = useCartStore();
+  const { addItem: addLike } = useLoveListStore();
+  const { toast } = useToast();
+
+  const addItemHandler = (prod: productItem) => {
+    addItem({
+      id: prod.id,
+      name: prod.label,
+      price: prod.sale,
+      src: prod.src,
+      quantity: 1,
+    });
+    toast({ description: "Product Added to Cart" });
+  };
+
+  const addLikeHandler = (prod: productItem) => {
+    addLike({
+      id: prod.id,
+      name: prod.label,
+      price: prod.sale,
+      src: prod.src,
+    });
+
+    toast({ description: "Product Added to Love List" });
+  };
   return (
     <section className="py-10 text-center">
       <header>
@@ -44,10 +87,13 @@ const Products = () => {
           Problems trying to resolve the conflict between
         </p>
       </header>
-      <main className="flex flex-col items-center gap-5">
+      <main className="flex flex-col items-center gap-5 md:w-2/3 md:mx-auto md:grid md:grid-cols-4">
         {featuredProducts.map((prod) => (
-          <>
-            <div key={prod.label} className="relative w-fit cursor-pointer">
+          <div>
+            <div
+              key={prod.label}
+              className="relative w-fit cursor-pointer mb-2"
+            >
               <Image
                 width={300}
                 height={300}
@@ -55,9 +101,21 @@ const Products = () => {
                 alt={prod.label}
                 className="mx-auto"
               />
-              <div className="absolute inset-0 bg-black/40 opacity-0 transition hover:opacity-100 flex justify-center items-center">
+              <div className="absolute inset-0 bg-black/40 opacity-0 transition hover:opacity-100 flex flex-col gap-3 justify-center items-center">
+                <Button
+                  className="bg-[#2DC071] hover:bg-[#2DC071]/80"
+                  onClick={() => addItemHandler(prod)}
+                >
+                  <Plus />
+                </Button>
                 <Button className="bg-[#2DC071] hover:bg-[#2DC071]/80">
-                  Buy Now
+                  <Eye />
+                </Button>
+                <Button
+                  className="bg-[#2DC071] hover:bg-[#2DC071]/80"
+                  onClick={() => addLikeHandler(prod)}
+                >
+                  <Heart />
                 </Button>
               </div>
             </div>
@@ -69,7 +127,7 @@ const Products = () => {
                 <span className="text-green-700">${prod.sale}</span>
               </p>
             </div>
-          </>
+          </div>
         ))}
       </main>
     </section>
