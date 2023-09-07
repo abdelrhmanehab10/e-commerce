@@ -1,38 +1,36 @@
-type Props = {};
+"use client";
 
-const Navbar = (props: Props) => {
+import { Search, ShoppingCart, Menu } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+
+const Navbar = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   const routes = [
     {
       label: "Home",
       path: "/",
-      dropdown: false,
-    },
-    {
-      label: "Shop",
-      path: "/shop",
-      dropdown: true,
     },
     {
       label: "About",
       path: "/about",
-      dropdown: false,
-    },
-    {
-      label: "Blog",
-      path: "/blog",
-      dropdown: false,
     },
     {
       label: "Contact",
       path: "/contact",
-      dropdown: false,
-    },
-    {
-      label: "Contact",
-      path: "/contact",
-      dropdown: false,
     },
   ];
+
   return (
     <nav
       className="
@@ -45,11 +43,46 @@ const Navbar = (props: Props) => {
         justify-between
         "
     >
-      <h1
-        className="font-bold text-xl"
+      <h1 className="font-bold text-xl">SwiftMarket</h1>
+      <ul
+        className="
+          flex
+          gap-4
+        "
       >
-        E Commerce
-      </h1>
+        <li>
+          <Search />
+        </li>
+        <li>
+          <ShoppingCart />
+        </li>
+        <li>
+          <Sheet>
+            <SheetTrigger>
+              <Menu />
+            </SheetTrigger>
+            <SheetContent side="top">
+              <ul className="text-center flex flex-col gap-5">
+                {routes.map((route) => (
+                  <li
+                    key={route.label}
+                    className={cn(
+                      pathname === route.path && "font-bold text-[#2DC071]"
+                    )}
+                  >
+                    <Link
+                      onClick={() => router.push(route.path)}
+                      href={route.path}
+                    >
+                      {route.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </SheetContent>
+          </Sheet>
+        </li>
+      </ul>
     </nav>
   );
 };

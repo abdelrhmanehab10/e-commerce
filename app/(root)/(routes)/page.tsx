@@ -1,11 +1,15 @@
+import Categories from "@/components/categories";
 import Hero from "@/components/hero";
-import Navbar from "@/components/navbar";
+import FeaturedProducts from "@/components/featured-products";
+import HotProduct from "@/components/hot-product";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
       <Hero />
+      <Categories />
+      <FeaturedProducts />
+      <HotProduct />
     </>
   );
 }
