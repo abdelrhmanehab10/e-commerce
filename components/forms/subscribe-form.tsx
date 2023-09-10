@@ -9,7 +9,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
 } from "../ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
@@ -32,7 +31,10 @@ const SubscribeForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex justify-start my-3">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex justify-start my-3"
+      >
         <FormField
           control={form.control}
           name="email"

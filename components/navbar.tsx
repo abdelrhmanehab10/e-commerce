@@ -1,10 +1,17 @@
-import { Heart, Search, ShoppingCart, User } from "lucide-react";
+import { Search } from "lucide-react";
 import DropdownMenu from "./dropdown-menu";
 import Link from "next/link";
 import CartModal from "@/components/modals/cart-modal";
 import LoveModal from "./modals/love-modal";
+import LoginModal from "./modals/login-modal";
+import UserDropdown from "./user-dropdown";
+import { getAuthSession } from "@/lib/auth";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await getAuthSession();
+
+  console.log(session);
+
   const routes = [
     {
       label: "Home",
@@ -49,22 +56,27 @@ const Navbar = () => {
           md:text-[#23A6F0]
         "
       >
-        <li className="hidden md:flex md:gap-1 text-xs items-center font-bold cursor-pointer">
-          <User className="w-5 h-5 hover:scale-105 transition" /> Login /
-          Register
-        </li>
         <li className="cursor-pointer">
           <Search className="w-5 h-5 hover:scale-105 transition" />
         </li>
         <li className="cursor-pointer">
           <CartModal />
         </li>
-        <li className="md:hidden">
-          <DropdownMenu />
-        </li>
         <li className="cursor-pointer">
           <LoveModal />
         </li>
+        <li className="md:hidden">
+          <DropdownMenu />
+        </li>
+        {session?.user ? (
+          <li>
+            <UserDropdown user={session.user} />
+          </li>
+        ) : (
+          <li className="hidden md:block cursor-pointer">
+            <LoginModal />
+          </li>
+        )}
       </ul>
     </nav>
   );

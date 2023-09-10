@@ -72,6 +72,7 @@ const Products = () => {
       name: prod.label,
       price: prod.sale,
       src: prod.src,
+      quantity: 1,
     });
 
     toast({ description: "Product Added to Love List" });
@@ -88,11 +89,9 @@ const Products = () => {
         </p>
       </header>
       <main className="flex flex-col items-center gap-5 md:w-2/3 md:mx-auto md:grid md:grid-cols-4">
-        {featuredProducts.map((prod) => (
-          <div  key={prod.label}>
-            <div
-              className="relative w-fit cursor-pointer mb-2"
-            >
+        {featuredProducts.map((prod, idx) => (
+          <div key={idx}>
+            <div className="relative w-fit cursor-pointer mb-2">
               <Image
                 width={300}
                 height={300}
@@ -100,22 +99,24 @@ const Products = () => {
                 alt={prod.label}
                 className="mx-auto"
               />
-              <div className="absolute inset-0 bg-black/40 opacity-0 transition hover:opacity-100 flex flex-col gap-3 justify-center items-center">
-                <Button
-                  className="bg-[#2DC071] hover:bg-[#2DC071]/80"
-                  onClick={() => addItemHandler(prod)}
-                >
-                  <Plus />
-                </Button>
-                <Button className="bg-[#2DC071] hover:bg-[#2DC071]/80">
-                  <Eye />
-                </Button>
-                <Button
-                  className="bg-[#2DC071] hover:bg-[#2DC071]/80"
-                  onClick={() => addLikeHandler(prod)}
-                >
-                  <Heart />
-                </Button>
+              <div className="absolute inset-0 bg-black/40 opacity-0 transition hover:opacity-100 flex gap-3 justify-center items-end">
+                <div className="mb-10">
+                  <Button
+                    className="transition-all bg-white hover:bg-white/70 hover:scale-110 mx-2 rounded-full w-12 h-12"
+                    onClick={() => addItemHandler(prod)}
+                  >
+                    <Plus className="w-10 h-10 text-black" />
+                  </Button>
+                  <Button className="transition-all bg-white hover:bg-white/70 hover:scale-110 mx-2 rounded-full w-12 h-12">
+                    <Eye className="w-10 h-10 text-black" />
+                  </Button>
+                  <Button
+                    className="transition-all bg-white hover:bg-white/70 hover:scale-110 mx-2 rounded-full w-12 h-12"
+                    onClick={() => addLikeHandler(prod)}
+                  >
+                    <Heart className="w-10 h-10 text-black" />
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="font-bold">

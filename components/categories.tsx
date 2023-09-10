@@ -1,18 +1,23 @@
-import { cn } from "@/lib/utils";
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const categories = [
   {
     src: "/categories/1.png",
     label: "Men",
+    link: "/category/men",
   },
   {
     src: "/categories/2.png",
     label: "Women",
+    link: "/category/women",
   },
 ];
 
 const Categories = () => {
+  const router = useRouter();
   return (
     <section className="py-10 text-center">
       <header>
@@ -23,7 +28,11 @@ const Categories = () => {
       </header>
       <main className="flex flex-col items-center gap-5 md:justify-center md:flex-row md:w-2/3 md:mx-auto">
         {categories.map((cat) => (
-          <div key={cat.label} className="relative w-fit cursor-pointer">
+          <div
+            key={cat.label}
+            onClick={() => router.push(cat.link)}
+            className="relative w-fit cursor-pointer"
+          >
             <Image
               width={300}
               height={300}
