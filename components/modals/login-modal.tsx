@@ -19,7 +19,8 @@ const LoginModal = () => {
   return (
     <Dialog>
       <DialogTrigger className="flex gap-1 text-xs items-center font-bold">
-        <User className="w-5 h-5 hover:scale-105 transition" /> Login / Register{" "}
+        <User className="w-5 h-5 hover:scale-105 transition" />
+        Login / Register
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Sign in</DialogTitle>

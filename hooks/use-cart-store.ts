@@ -1,16 +1,16 @@
 import { create } from "zustand";
 
-export interface CartItem {
+export interface Product {
   id: string;
   name: string;
   price: number;
   quantity: number;
-  src: string;
+  image: string;
 }
 
 interface CartStore {
-  items: CartItem[];
-  addItem: (item: CartItem) => void;
+  items: Product[];
+  addItem: (item: Product) => void;
   removeItem: (itemId: string) => void;
 }
 

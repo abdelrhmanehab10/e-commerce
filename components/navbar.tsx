@@ -1,5 +1,4 @@
 import { Search } from "lucide-react";
-import DropdownMenu from "./dropdown-menu";
 import Link from "next/link";
 import CartModal from "@/components/modals/cart-modal";
 import LoveModal from "./modals/love-modal";
@@ -9,8 +8,6 @@ import { getAuthSession } from "@/lib/auth";
 
 const Navbar = async () => {
   const session = await getAuthSession();
-
-  console.log(session);
 
   const routes = [
     {
@@ -57,23 +54,17 @@ const Navbar = async () => {
         "
       >
         <li className="cursor-pointer">
-          <Search className="w-5 h-5 hover:scale-105 transition" />
-        </li>
-        <li className="cursor-pointer">
           <CartModal />
         </li>
         <li className="cursor-pointer">
           <LoveModal />
-        </li>
-        <li className="md:hidden">
-          <DropdownMenu />
         </li>
         {session?.user ? (
           <li>
             <UserDropdown user={session.user} />
           </li>
         ) : (
-          <li className="hidden md:block cursor-pointer">
+          <li className="cursor-pointer">
             <LoginModal />
           </li>
         )}
