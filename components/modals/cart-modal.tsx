@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, ShoppingCart, Trash } from "lucide-react";
+import { ShoppingCart, Trash } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,16 +9,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { CartItem, useCartStore } from "@/hooks/use-cart-store";
+import { useCartStore } from "@/hooks/use-cart-store";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { ChangeEvent } from "react";
+import { Product } from "@/dummy/products";
 
 const CartModal = () => {
   const { items } = useCartStore();
   const { addItem, removeItem } = useCartStore();
-  const updateQuantity = (e: ChangeEvent<HTMLInputElement>, item: CartItem) => {
+  const updateQuantity = (e: ChangeEvent<HTMLInputElement>, item: Product) => {
     const quantity = +e.target.value;
     if (quantity > item.quantity) {
       addItem(item);
@@ -29,8 +30,9 @@ const CartModal = () => {
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="flex items-center gap-1">
         <ShoppingCart className="w-5 h-5 hover:scale-105 transition" />
+        {items.length > 0 && items.length}
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Shopping cart</DialogTitle>
@@ -65,7 +67,7 @@ const CartModal = () => {
                 <Image
                   width={50}
                   height={50}
-                  src={item.src}
+                  src={item.image}
                   alt={item.name}
                   className="rounded-md"
                 />
@@ -79,6 +81,7 @@ const CartModal = () => {
                   type="number"
                   value={item.quantity}
                   onChange={(e) => updateQuantity(e, item)}
+                  autoFocus={false}
                 />
               </div>
               <Trash

@@ -1,12 +1,5 @@
+import { Product } from "@/dummy/products";
 import { create } from "zustand";
-
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
 
 interface CartStore {
   items: Product[];

@@ -1,9 +1,9 @@
+import { Product } from "@/dummy/products";
 import { create } from "zustand";
-import { CartItem } from "./use-cart-store";
 
 interface LoveListStore {
-  items: CartItem[];
-  addItem: (item: CartItem) => void;
+  items: Product[];
+  addItem: (item: Product) => void;
   removeItem: (itemId: string) => void;
 }
 

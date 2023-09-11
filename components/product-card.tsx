@@ -3,21 +3,14 @@ import Image from "next/image";
 import { FC } from "react";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
-import { Product, useCartStore } from "@/hooks/use-cart-store";
+import { useCartStore } from "@/hooks/use-cart-store";
 import { Eye, Heart, Plus } from "lucide-react";
 import { useLoveListStore } from "@/hooks/use-love-list-store";
 import { useRouter } from "next/navigation";
+import { Product } from "@/dummy/products";
 
 interface ProductCardProps {
-  product: {
-    id: string;
-    image: string;
-    name: string;
-    description: string;
-    price: number;
-    sale: number;
-    quantity: number;
-  };
+  product: Product;
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
@@ -25,6 +18,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { addItem: addLike } = useLoveListStore();
   const { toast } = useToast();
   const router = useRouter();
+
   const addItemHandler = (product: Product) => {
     addItem(product);
     toast({ description: "Product Added to Cart" });

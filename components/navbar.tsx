@@ -26,6 +26,7 @@ const Navbar = async () => {
       <ul
         className="
           flex
+          items-center
           gap-4
           md:text-[#23A6F0]
         "

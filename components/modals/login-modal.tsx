@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { BsGoogle } from "react-icons/bs";
-import LoginForm from "../forms/login-form";
 import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
 const LoginModal = () => {
@@ -25,12 +24,15 @@ const LoginModal = () => {
       <DialogContent>
         <DialogTitle>Sign in</DialogTitle>
         <Separator className="bg-foreground" />
-        <Button onClick={signinHandler} className="bg-[#23A6F0]">
+        <Button
+          onClick={signinHandler}
+          className="bg-[#23A6F0] hover:bg-[#23A6F0]/80"
+        >
           Sign in with google <BsGoogle className="ml-2" />
         </Button>
-        <p className="text-center text-xs">or Enter your email and password</p>
+        {/* <p className="text-center text-xs">or Enter your email and password</p>
         <Separator className="bg-foreground" />
-        <LoginForm />
+        <LoginForm /> */}
       </DialogContent>
     </Dialog>
   );

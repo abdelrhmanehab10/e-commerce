@@ -9,11 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { CartItem, useCartStore } from "@/hooks/use-cart-store";
+import { useCartStore } from "@/hooks/use-cart-store";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { useLoveListStore } from "@/hooks/use-love-list-store";
 import { useToast } from "../ui/use-toast";
+import { Product } from "@/dummy/products";
 
 const LoveModal = () => {
   const { items } = useLoveListStore();
@@ -21,22 +22,15 @@ const LoveModal = () => {
   const { addItem } = useCartStore();
   const { toast } = useToast();
 
-  const addItemHandler = (prod: CartItem) => {
-    console.log(prod);
-
-    addItem({
-      id: prod.id,
-      name: prod.name,
-      price: prod.price,
-      src: prod.src,
-      quantity: 1,
-    });
+  const addItemHandler = (product: Product) => {
+    addItem(product);
     toast({ description: "Product Added to Cart" });
   };
   return (
     <Dialog>
-      <DialogTrigger>
-        <Heart className="w-5 h-5 hover:scale-105 transition" />
+      <DialogTrigger className="flex items-center gap-1">
+        <Heart className="w-5 h-5 hover:scale-105 transition" />{" "}
+        {items.length > 0 && items.length}
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Love List</DialogTitle>
@@ -66,7 +60,7 @@ const LoveModal = () => {
                 <Image
                   width={50}
                   height={50}
-                  src={item.src}
+                  src={item.image}
                   alt={item.name}
                   className="rounded-l-md "
                 />
