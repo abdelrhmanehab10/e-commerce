@@ -7,12 +7,12 @@ const categories = [
   {
     src: "/categories/1.png",
     label: "Men",
-    link: "/category/men/1",
+    link: "/category/men",
   },
   {
     src: "/categories/2.png",
     label: "Women",
-    link: "/category/women/1",
+    link: "/category/women",
   },
 ];
 

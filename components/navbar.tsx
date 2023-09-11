@@ -1,4 +1,3 @@
-import { Search } from "lucide-react";
 import Link from "next/link";
 import CartModal from "@/components/modals/cart-modal";
 import LoveModal from "./modals/love-modal";
@@ -8,21 +7,6 @@ import { getAuthSession } from "@/lib/auth";
 
 const Navbar = async () => {
   const session = await getAuthSession();
-
-  const routes = [
-    {
-      label: "Home",
-      path: "/",
-    },
-    {
-      label: "About",
-      path: "/about",
-    },
-    {
-      label: "Contact",
-      path: "/contact",
-    },
-  ];
 
   return (
     <nav
@@ -36,16 +20,9 @@ const Navbar = async () => {
         justify-between
         "
     >
-      <h1 className="font-bold text-xl">SwiftMarket</h1>
-
-      <ul className="md:flex md:gap-10 hidden">
-        {routes.map((route) => (
-          <li className="transition hover:text-[#23A6F0]" key={route.label}>
-            <Link href={route.path}>{route.label}</Link>
-          </li>
-        ))}
-      </ul>
-
+      <h1 className="font-bold text-xl">
+        <Link href="/">SwiftMarket</Link>
+      </h1>
       <ul
         className="
           flex

@@ -6,6 +6,7 @@ import { useToast } from "./ui/use-toast";
 import { Product, useCartStore } from "@/hooks/use-cart-store";
 import { Eye, Heart, Plus } from "lucide-react";
 import { useLoveListStore } from "@/hooks/use-love-list-store";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   product: {
@@ -23,7 +24,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { addItem } = useCartStore();
   const { addItem: addLike } = useLoveListStore();
   const { toast } = useToast();
-
+  const router = useRouter();
   const addItemHandler = (product: Product) => {
     addItem(product);
     toast({ description: "Product Added to Cart" });
@@ -31,7 +32,6 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
   const addLikeHandler = (product: Product) => {
     addLike(product);
-
     toast({ description: "Product Added to Love List" });
   };
   return (
@@ -52,7 +52,10 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             >
               <Plus className="w-10 h-10 text-black" />
             </Button>
-            <Button className="transition-all bg-white hover:bg-white/70 hover:scale-110 mx-2 rounded-full w-12 h-12">
+            <Button
+              onClick={() => router.push(`/product/${product.id}`)}
+              className="transition-all bg-white hover:bg-white/70 hover:scale-110 mx-2 rounded-full w-12 h-12"
+            >
               <Eye className="w-10 h-10 text-black" />
             </Button>
             <Button
