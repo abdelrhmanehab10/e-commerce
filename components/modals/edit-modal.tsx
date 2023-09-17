@@ -6,7 +6,13 @@ import {
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal";
 import { Separator } from "../ui/separator";
-import { Form, FormControl, FormField, FormItem } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -15,29 +21,40 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import UploadButton from "../upload-button";
 import { Label } from "../ui/label";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(8),
   description: z.string().min(20).max(200),
-  price: z.number().min(1),
-  sale: z.number().min(1).optional(),
+  price: z.string().min(1),
+  sale: z.string().min(1).optional(),
 });
 
 const EditModal = () => {
   const { isOpen, onClose, data } = useModal();
-
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
-      price: 0,
-      sale: 0,
+      price: "",
+      sale: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+
+    try {
+      await axios.patch(`/api/product/${data?.id}`, values);
+      form.reset();
+      router.refresh();
+      onClose();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -55,12 +72,9 @@ const EditModal = () => {
                 <FormItem>
                   <Label>Product Name</Label>
                   <FormControl>
-                    <Input
-                      placeholder="Product name"
-                      {...field}
-                      value={data?.name}
-                    />
+                    <Input placeholder="Product name" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -71,12 +85,9 @@ const EditModal = () => {
                 <FormItem>
                   <Label>Product Description</Label>
                   <FormControl>
-                    <Textarea
-                      placeholder="Product Description"
-                      {...field}
-                      value={data?.description}
-                    />
+                    <Textarea placeholder="Product Description" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -88,8 +99,9 @@ const EditModal = () => {
                   <FormItem>
                     <Label>Product Price</Label>
                     <FormControl>
-                      <Input type="number" {...field} value={data?.price} />
+                      <Input type="number" {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -102,8 +114,9 @@ const EditModal = () => {
                       Form Sale <span className="text-xs ml-2">(optional)</span>
                     </Label>
                     <FormControl>
-                      <Input type="number" {...field} value={data?.sale} />
+                      <Input type="number" {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />

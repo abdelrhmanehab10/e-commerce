@@ -6,6 +6,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { Edit, Eye, Heart, Trash } from "lucide-react";
 import { Product } from "@/dummy/products";
 import { useModal } from "@/hooks/use-modal";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   product: Product;
@@ -13,6 +15,15 @@ interface ProductCardProps {
 
 const Product: FC<ProductCardProps> = ({ product }) => {
   const { onOpen } = useModal();
+  const router = useRouter();
+  const onDelete = async () => {
+    try {
+      await axios.delete(`/api/product/${product.id}`);
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div className="relative w-fit cursor-pointer mb-2">
@@ -32,7 +43,7 @@ const Product: FC<ProductCardProps> = ({ product }) => {
               />
             </Button>
             <Button className="transition-all bg-white hover:bg-white/70 hover:scale-110 mx-2 rounded-full w-12 h-12">
-              <Trash className="w-10 h-10 text-black" />
+              <Trash onClick={onDelete} className="w-10 h-10 text-black" />
             </Button>
           </div>
         </div>

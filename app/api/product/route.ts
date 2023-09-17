@@ -3,12 +3,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { name, description, price, sale, image } = await req.json();
+    const { name, description, price, sale, imageUrl } = await req.json();
     const product = await db.product.create({
       data: {
         name,
         description,
-        image,
+        imageUrl,
         price,
         sale,
       },

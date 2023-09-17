@@ -14,29 +14,35 @@ import { z } from "zod";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import UploadButton from "../upload-button";
+import axios from "axios";
 
 const formSchema = z.object({
-  imageURL: z.string().min(1),
+  imageUrl: z.string().min(1),
   name: z.string().min(8),
   description: z.string().min(20).max(200),
-  price: z.number().min(1),
-  sale: z.number().min(1).optional(),
+  price: z.string().min(1),
+  sale: z.string().min(1).optional(),
 });
 
 const AddProductForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      imageURL: "",
+      imageUrl: "",
       name: "",
       description: "",
-      price: 0,
-      sale: 0,
+      price: "",
+      sale: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await axios.post("/api/product", values);
+      form.reset();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Form {...form}>
@@ -99,10 +105,10 @@ const AddProductForm = () => {
         </div>
         <FormField
           control={form.control}
-          name="sale"
+          name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <UploadButton />
+              <UploadButton onChange={field.onChange} />
             </FormItem>
           )}
         />

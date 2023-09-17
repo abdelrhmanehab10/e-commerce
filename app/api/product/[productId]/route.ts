@@ -24,7 +24,7 @@ export async function PATCH(
   { params }: { params: { productId: string } }
 ) {
   try {
-    const { name, description, image, price, sale } = await req.json();
+    const { name, description, price, sale } = await req.json();
     const product = await db.product.update({
       where: {
         id: params.productId,
@@ -32,7 +32,6 @@ export async function PATCH(
       data: {
         name,
         description,
-        image,
         price,
         sale,
       },

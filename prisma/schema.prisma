@@ -55,12 +55,12 @@ model User {
 }
 
 model Product {
-  id          String @id @default(cuid())
+  id          String  @id @default(cuid())
   name        String
   description String
-  price       Int
-  sale        Int?
-  image       String
+  price       String
+  sale        String?
+  imageUrl    String
 
   createdAt DateTime @default(now())
 }
