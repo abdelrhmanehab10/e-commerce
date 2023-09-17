@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import Provider from "@/components/provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import ModalProvider from "@/components/providers/modal-provider";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider>
           <Navbar />
+          <ModalProvider />
           {children}
           <Footer />
           <Toaster />

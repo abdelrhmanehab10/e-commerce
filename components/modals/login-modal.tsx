@@ -7,19 +7,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import { BsGoogle } from "react-icons/bs";
-import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
+import { Separator } from "@/components/ui/separator";
+
 const LoginModal = () => {
   const signinHandler = async () => {
     await signIn("google");
   };
+
   return (
     <Dialog>
       <DialogTrigger className="flex gap-1 text-xs items-center font-bold">
         <User className="w-5 h-5 hover:scale-105 transition" />
-        Login / Register
+        Login
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Sign in</DialogTitle>
@@ -30,9 +32,6 @@ const LoginModal = () => {
         >
           Sign in with google <BsGoogle className="ml-2" />
         </Button>
-        {/* <p className="text-center text-xs">or Enter your email and password</p>
-        <Separator className="bg-foreground" />
-        <LoginForm /> */}
       </DialogContent>
     </Dialog>
   );

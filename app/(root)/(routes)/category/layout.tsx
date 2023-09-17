@@ -1,5 +1,6 @@
 "use client";
 
+import ProductsHeader from "@/components/products-header";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -38,22 +39,7 @@ const CategoryLayout = ({ children }: { children: React.ReactNode }) => {
       </header>
 
       <main className="text-center mt-5">
-        <div className="flex justify-between items-center mx-5 border rounded px-3 mb-3">
-          <p>Showing all 12 results</p>
-          <div className="my-3 flex gap-5 justify-center items-center">
-            <Select>
-              <SelectTrigger className="w-fit flex justify-center items-center">
-                <SelectValue placeholder="Sort by" />
-                <ChevronDown className="w-5 h-5" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Popularity">Popularity</SelectItem>
-                <SelectItem value="Trendy">Trendy</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button className="bg-[#23A6F0]">Filter</Button>
-          </div>
-        </div>
+        <ProductsHeader productsQuantity={12} />
         <div>{children}</div>
         <div className="flex items-center justify-center space-x-2 py-4">
           <Button variant="outline" size="sm" value="prev">

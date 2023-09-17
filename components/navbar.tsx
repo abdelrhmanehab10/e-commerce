@@ -1,16 +1,15 @@
 import Link from "next/link";
 import CartModal from "@/components/modals/cart-modal";
 import LoveModal from "./modals/love-modal";
-import LoginModal from "./modals/login-modal";
 import UserDropdown from "./user-dropdown";
 import { getAuthSession } from "@/lib/auth";
+import LoginModal from "./modals/login-modal";
 
 const Navbar = async () => {
   const session = await getAuthSession();
-
   return (
     <nav
-      className="
+      className={`
         w-full 
         bg-white 
         h-16 
@@ -18,7 +17,7 @@ const Navbar = async () => {
         items-center
         px-3
         justify-between
-        "
+        `}
     >
       <h1 className="font-bold text-xl">
         <Link href="/">SwiftMarket</Link>
@@ -37,15 +36,13 @@ const Navbar = async () => {
         <li className="cursor-pointer">
           <LoveModal />
         </li>
-        {session?.user ? (
-          <li>
-            <UserDropdown user={session.user} />
-          </li>
-        ) : (
-          <li className="cursor-pointer">
+        <li>
+          {session?.user ? (
+            <UserDropdown user={session?.user} />
+          ) : (
             <LoginModal />
-          </li>
-        )}
+          )}
+        </li>
       </ul>
     </nav>
   );

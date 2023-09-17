@@ -65,7 +65,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         <h3>{product.name}</h3>
         <h4 className="text-gray-400">{product.description}</h4>
         <p className="pt-2 text-sm flex gap-2 justify-center">
-          <span className="text-gray-500/70">${product.price}</span>
+          <span className="text-gray-500/70 line-through">
+            ${product.price}
+          </span>
           <span className="text-green-700">${product.sale}</span>
         </p>
       </div>

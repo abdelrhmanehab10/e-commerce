@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 
 const categories = [
   {
-    src: "/categories/1.png",
+    src: "/categories/1.webp",
     label: "Men",
     link: "/category/men",
   },
   {
-    src: "/categories/2.png",
+    src: "/categories/2.webp",
     label: "Women",
     link: "/category/women",
   },

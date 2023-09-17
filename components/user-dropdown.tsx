@@ -15,12 +15,14 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { DoorOpen } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type UserDropdownProps = {
   user: User;
 };
 
 const UserDropdown: FC<UserDropdownProps> = ({ user }) => {
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,6 +35,12 @@ const UserDropdown: FC<UserDropdownProps> = ({ user }) => {
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuLabel className="truncate">{user.email}</DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-[#23A6F0]" />
+        <DropdownMenuItem
+          className="cursor-pointer transition hover:bg-foreground/20"
+          onClick={() => router.push("/dashboard")}
+        >
+          Dashboard
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => signOut()}
           className="cursor-pointer transition hover:bg-red-500 hover:text-white flex justify-between items-center"

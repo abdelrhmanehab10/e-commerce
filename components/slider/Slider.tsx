@@ -34,7 +34,7 @@ const Slider = () => {
           </p>
         </div>
       </SwiperSlide>
-      <SwiperSlide className="bg-[url(/slider/2.jpg)] bg-center bg-cover">
+      <SwiperSlide className="bg-[url(/slider/new2.jpg)] bg-center bg-cover">
         <div className="text-center h-full flex flex-col justify-center items-center bg-black/20">
           <h5 className="uppercase text-sm font-semibold">Winter 2023</h5>
           <h1 className="uppercase text-4xl py-3 font-bold">Black Friday</h1>
