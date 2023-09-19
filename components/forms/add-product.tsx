@@ -54,8 +54,8 @@ const AddProductForm = ({ categories }: { categories: Category[] }) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post("/api/product", values);
-      form.reset();
       router.back();
+      form.reset();
       router.refresh();
     } catch (error) {
       console.log(error);

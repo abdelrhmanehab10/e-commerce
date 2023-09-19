@@ -39,8 +39,8 @@ const AddCategoryForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post("/api/category", values);
-      form.reset();
       router.back();
+      form.reset();
       router.refresh();
     } catch (error) {
       console.log(error);
