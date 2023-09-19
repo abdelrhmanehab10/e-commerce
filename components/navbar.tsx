@@ -4,6 +4,7 @@ import LoveModal from "./modals/love-modal";
 import UserDropdown from "./user-dropdown";
 import { getAuthSession } from "@/lib/auth";
 import LoginModal from "./modals/login-modal";
+import { Session } from "next-auth";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -37,11 +38,7 @@ const Navbar = async () => {
           <LoveModal />
         </li>
         <li>
-          {session?.user ? (
-            <UserDropdown user={session?.user} />
-          ) : (
-            <LoginModal />
-          )}
+          {session?.user ? <UserDropdown session={session} /> : <LoginModal />}
         </li>
       </ul>
     </nav>

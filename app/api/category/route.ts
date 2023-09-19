@@ -3,22 +3,18 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { name, description, price, sale, imageUrl, categoryId } =
-      await req.json();
-    const product = await db.product.create({
+    const { name, description, price, sale, imageUrl } = await req.json();
+    const category = await db.category.create({
       data: {
         name,
         description,
         imageUrl,
-        price,
-        sale,
-        categoryId,
       },
     });
 
-    return NextResponse.json(product);
+    return NextResponse.json(category);
   } catch (error) {
-    console.log("PRODUCT_POST", error);
+    console.log("CATEGORY_POST", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

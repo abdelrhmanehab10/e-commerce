@@ -1,9 +1,13 @@
-import { Product } from "@/dummy/products";
+import { Product } from "@prisma/client";
 import { create } from "zustand";
 
+type Item = Product & {
+  quantity: number;
+};
+
 interface CartStore {
-  items: Product[];
-  addItem: (item: Product) => void;
+  items: Item[];
+  addItem: (item: Item) => void;
   removeItem: (itemId: string) => void;
 }
 
@@ -22,7 +26,7 @@ export const useCartStore = create<CartStore>((set) => ({
         );
         return { items: updateItems };
       } else {
-        return { items: [...state.items, item] };
+        return { items: [...state.items, { ...item, quantity: 1 }] };
       }
     }),
   removeItem: (itemId) =>

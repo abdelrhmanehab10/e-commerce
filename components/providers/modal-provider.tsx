@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import EditModal from "../modals/edit-modal";
+import EditProductModal from "../modals/edit-product-modal";
+import EditCategoryModal from "../modals/edit-category-modal";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -15,7 +16,8 @@ const ModalProvider = () => {
   }
   return (
     <>
-      <EditModal />
+      <EditProductModal />
+      <EditCategoryModal />
     </>
   );
 };

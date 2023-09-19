@@ -19,36 +19,32 @@ import { z } from "zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import UploadButton from "../upload-button";
 import { Label } from "../ui/label";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  name: z.string().min(8),
+  name: z.string().min(3),
   description: z.string().min(20).max(200),
-  price: z.string().min(1),
-  sale: z.string().min(1).optional(),
 });
 
-const EditModal = () => {
-  const { isOpen, onClose, data } = useModal();
+const EditCategoryModal = () => {
+  const { isOpen, onClose, data, type } = useModal();
+
+  const openModal = isOpen && type === "edit-category";
+
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
-      price: "",
-      sale: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     try {
-      await axios.patch(`/api/product/${data?.id}`, values);
+      await axios.patch(`/api/category/${data?.id}`, values);
       form.reset();
       router.refresh();
       onClose();
@@ -57,10 +53,10 @@ const EditModal = () => {
     }
   };
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={openModal} onOpenChange={onClose}>
       <DialogContent className="bg-white text-black">
         <DialogHeader className="pt-8">
-          <DialogTitle>Edit Product</DialogTitle>
+          <DialogTitle>Edit Category</DialogTitle>
         </DialogHeader>
         <Separator className="bg-foreground" />
         <Form {...form}>
@@ -70,9 +66,9 @@ const EditModal = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <Label>Product Name</Label>
+                  <Label>Category Name</Label>
                   <FormControl>
-                    <Input placeholder="Product name" {...field} />
+                    <Input placeholder="Category name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,44 +79,14 @@ const EditModal = () => {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <Label>Product Description</Label>
+                  <Label>Category Description</Label>
                   <FormControl>
-                    <Textarea placeholder="Product Description" {...field} />
+                    <Textarea placeholder="Category Description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-5">
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <Label>Product Price</Label>
-                    <FormControl>
-                      <Input type="number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="sale"
-                render={({ field }) => (
-                  <FormItem>
-                    <Label>
-                      Form Sale <span className="text-xs ml-2">(optional)</span>
-                    </Label>
-                    <FormControl>
-                      <Input type="number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
             <Button
               type="submit"
               className="w-full bg-[#23A6F0] hover:bg-[#23A6F0]/80 mt-3"
@@ -134,4 +100,4 @@ const EditModal = () => {
   );
 };
 
-export default EditModal;
+export default EditCategoryModal;

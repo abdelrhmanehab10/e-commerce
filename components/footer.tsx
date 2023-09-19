@@ -19,7 +19,7 @@ const listItems = [
 
 const Footer = () => {
   return (
-    <footer className="p-3 md:w-2/3 md:mx-auto">
+    <footer className="px-3 pt-5 w-full">
       <div className="md:flex md:justify-between md:border-b md:pb-5">
         <h1 className="font-bold text-xl">SwiftMarket</h1>
         <ul className="flex gap-6 my-2">

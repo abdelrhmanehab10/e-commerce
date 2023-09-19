@@ -1,51 +1,29 @@
-"use client";
+import { db } from "@/lib/db";
+import CategoryCard from "./category/category-card";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-
-const categories = [
-  {
-    src: "/categories/1.webp",
-    label: "Men",
-    link: "/category/men",
-  },
-  {
-    src: "/categories/2.webp",
-    label: "Women",
-    link: "/category/women",
-  },
-];
-
-const Categories = () => {
-  const router = useRouter();
+const Categories = async () => {
+  const categories = await db.category.findMany();
   return (
     <section className="py-10 text-center">
       <header>
-        <h2 className="uppercase font-bold text-2xl">Editor&apos;s Pick</h2>
-        <p className="w-1/2 mx-auto text-sm pb-5">
-          Problems trying to resolve the conflict between{" "}
+        <h2 className="uppercase font-bold text-2xl">Explore Our Categories</h2>
+        <p className="w-1/2 md:w-1/3 mx-auto text-sm pb-5">
+          Discover a wide range of diverse categories tailored to meet your
+          interests, needs, and desires.
         </p>
       </header>
       <main className="flex flex-col items-center gap-5 md:justify-center md:flex-row md:w-2/3 md:mx-auto">
-        {categories.map((cat) => (
-          <div
-            key={cat.label}
-            onClick={() => router.push(cat.link)}
-            className="relative w-fit cursor-pointer"
-          >
-            <Image
-              width={300}
-              height={300}
-              src={cat.src}
-              alt={cat.label}
-              className="mx-auto"
-            />
-            <div className="absolute inset-0 bg-black/40 opacity-0 transition hover:opacity-100"></div>
-            <span className="absolute bottom-10 left-10 text-lg font-bold bg-white px-12 py-2">
-              {cat.label}
-            </span>
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <CategoryCard key={category.id} category={category} />
+          ))
+        ) : (
+          <div>
+            <h3 className="text-muted-foreground text-sm">
+              There&apos;s no categories...
+            </h3>
           </div>
-        ))}
+        )}
       </main>
     </section>
   );

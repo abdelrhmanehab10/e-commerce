@@ -11,15 +11,19 @@ import {
 } from "@/components/ui/dialog";
 import { useCartStore } from "@/hooks/use-cart-store";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { ChangeEvent } from "react";
-import { Product } from "@/dummy/products";
+import { CldImage } from "next-cloudinary";
+import { Product } from "@prisma/client";
+
+type Item = Product & {
+  quantity: number;
+};
 
 const CartModal = () => {
   const { items } = useCartStore();
   const { addItem, removeItem } = useCartStore();
-  const updateQuantity = (e: ChangeEvent<HTMLInputElement>, item: Product) => {
+  const updateQuantity = (e: ChangeEvent<HTMLInputElement>, item: Item) => {
     const quantity = +e.target.value;
     if (quantity > item.quantity) {
       addItem(item);
@@ -27,6 +31,7 @@ const CartModal = () => {
       removeItem(item.id);
     }
   };
+  console.log(items);
 
   return (
     <Dialog>
@@ -64,10 +69,10 @@ const CartModal = () => {
               className="grid grid-cols-3 justify-center items-center"
             >
               <div className="flex items-end gap-2">
-                <Image
+                <CldImage
                   width={50}
                   height={50}
-                  src={item.image}
+                  src={item.imageUrl}
                   alt={item.name}
                   className="rounded-md"
                 />

@@ -54,13 +54,28 @@ model User {
   sessions Session[]
 }
 
+model Category {
+  id          String @id @default(cuid())
+  name        String
+  imageUrl    String
+  description String @db.Text
+
+  products Product[]
+}
+
 model Product {
   id          String  @id @default(cuid())
   name        String
-  description String
+  description String  @db.Text
   price       String
   sale        String?
   imageUrl    String
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
+  @@index([categoryId])
 }

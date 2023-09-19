@@ -1,16 +1,21 @@
 import { Product } from "@/dummy/products";
+import { Category } from "@prisma/client";
 import { create } from "zustand";
 
+type ModalType = "edit-product" | "edit-category";
+
 export interface ModalStore {
-  data: Product | null;
+  type: ModalType | null;
+  data: Product | Category | null;
   isOpen: boolean;
-  onOpen: (data: Product) => void;
+  onOpen: (data: Product | Category, type: ModalType) => void;
   onClose: () => void;
 }
 
 export const useModal = create<ModalStore>((set) => ({
+  type: null,
   data: null,
   isOpen: false,
-  onOpen: (data) => set({ isOpen: true, data }),
+  onOpen: (data, type) => set({ isOpen: true, data, type }),
   onClose: () => set({ isOpen: false, data: null }),
 }));
