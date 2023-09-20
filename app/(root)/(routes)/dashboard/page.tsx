@@ -43,40 +43,39 @@ const Dashboard = async () => {
 
       <div className="text-center">
         <h2 className="font-bold text-3xl">Categories</h2>
-        <div className="py-5 flex flex-col items-center gap-5 md:grid md:grid-cols-3">
-          {categories.length > 0 ? (
-            categories.map((category) => (
-              <CategoryCard key={category.id} category={category} />
-            ))
-          ) : (
+        {categories.length > 0 ? (
+          <div className="py-5 grid grid-cols-1 md:grid-cols-3 items-center">
+            {categories.map((category) => (
+              <CategoryCard key={category.id} category={category} dashboard />
+            ))}
+          </div>
+        ) : (
+          <div>
             <p className="py-5 text-muted-foreground text-sm">
               There&apos;s no categories
             </p>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="text-center">
         <h2 className="font-bold text-3xl">Products</h2>
-
-        <div className="text-center">
-          {products.length > 0 ? (
-            <>
-              <ProductsHeader productsQuantity={products.length} />
-              <div className="flex flex-col items-center gap-5 md:grid md:grid-cols-4">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} dashboard />
-                ))}
-              </div>
-            </>
-          ) : (
-            <div>
-              <h3 className="py-5 text-muted-foreground text-sm">
-                There&apos;s no featured products...
-              </h3>
+        {products.length > 0 ? (
+          <>
+            <ProductsHeader productsQuantity={products.length} />
+            <div className="py-5 grid grid-cols-1 md:grid-cols-3 items-center">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} dashboard />
+              ))}
             </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <div>
+            <h3 className="py-5 text-muted-foreground text-sm">
+              There&apos;s no featured products...
+            </h3>
+          </div>
+        )}
       </div>
     </div>
   );

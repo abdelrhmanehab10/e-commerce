@@ -2,7 +2,7 @@ import { Product } from "@prisma/client";
 import { create } from "zustand";
 
 type Item = Product & {
-  quantity: number;
+  quantity?: number;
 };
 
 interface CartStore {
