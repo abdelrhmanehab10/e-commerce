@@ -20,6 +20,7 @@ const SingleProduct: FC<SingleProductProps> = ({ product }) => {
   const { toast } = useToast();
 
   const addItemHandler = () => {
+    if (!product) return;
     addItem(product);
     toast({ description: "Product Added to Cart" });
   };
