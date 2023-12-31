@@ -23,6 +23,7 @@ type Item = Product & {
 const CartModal = () => {
   const { items } = useCartStore();
   const { addItem, removeItem } = useCartStore();
+
   const updateQuantity = (e: ChangeEvent<HTMLInputElement>, item: Item) => {
     const quantity = +e.target.value;
     if (quantity > item.quantity) {
@@ -85,7 +86,7 @@ const CartModal = () => {
                 <Input
                   type="number"
                   value={item.quantity}
-                  onChange={(e) => updateQuantity(e, item)}
+                  onChange={(e) => updateQuantity(e, item as Item)}
                   autoFocus={false}
                 />
               </div>
