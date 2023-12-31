@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { useLoveListStore } from "@/hooks/use-love-list-store";
 import { useToast } from "../ui/use-toast";
-import { Product } from "@/dummy/products";
+import { Product } from "@prisma/client";
 
 const LoveModal = () => {
   const { items } = useLoveListStore();
