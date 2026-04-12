@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { useLoveListStore } from "@/hooks/use-love-list-store";
 import { useToast } from "../ui/use-toast";
-import { Product } from "@prisma/client";
+import type { Product } from "@/generated/prisma/client";
 
 const LoveModal = () => {
   const { items } = useLoveListStore();
@@ -60,7 +60,7 @@ const LoveModal = () => {
                 <Image
                   width={50}
                   height={50}
-                  src={item.image}
+                  src={item.imageUrl}
                   alt={item.name}
                   className="rounded-l-md "
                 />

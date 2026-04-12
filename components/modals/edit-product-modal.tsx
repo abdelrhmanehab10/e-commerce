@@ -34,6 +34,7 @@ const EditProductModal = () => {
   const { isOpen, onClose, data, type } = useModal();
 
   const openModal = isOpen && type === "edit-product";
+  const productId = data && "id" in data ? data.id : undefined;
 
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -48,7 +49,7 @@ const EditProductModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/product/${data?.id}`, values);
+      await axios.patch(`/api/product/${productId}`, values);
       form.reset();
       router.refresh();
       onClose();

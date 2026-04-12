@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { ChangeEvent } from "react";
 import { CldImage } from "next-cloudinary";
-import { Product } from "@prisma/client";
+import type { Product } from "@/generated/prisma/client";
 
 type Item = Product & {
   quantity: number;

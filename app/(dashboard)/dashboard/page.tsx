@@ -1,19 +1,15 @@
+import AddCategoryTrigger from "@/components/dashboard/add-category-trigger";
+import AddProductTrigger from "@/components/dashboard/add-product-trigger";
 import CategoryCard from "@/components/category/category-card";
 import ProductCard from "@/components/product-card";
 import ProductsHeader from "@/components/products-header";
-import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { cn } from "@/lib/utils";
-import { Group, Plus, Trash } from "lucide-react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 
 const Dashboard = async () => {
-  const session = await getAuthSession();
   const categories = await db.category.findMany();
   const products = await db.product.findMany();
 
-  if (session?.user.role !== "ADMIN") redirect("/");
   return (
     <div
       className={cn(
@@ -24,20 +20,8 @@ const Dashboard = async () => {
       <div className="py-5 flex justify-between items-center">
         <h1 className="font-bold text-3xl">Dashboard</h1>
         <div className="flex items-center gap-2">
-          <Link
-            href="/dashboard/add-category"
-            className="flex items-center text-[12px] transition hover:text-[#23A6F0]"
-          >
-            <Group className="cursor-pointer w-5 h-5 mr-1" />
-            New Category
-          </Link>
-          <Link
-            href="/dashboard/add-product"
-            className="flex items-center text-[12px] transition hover:text-[#23A6F0]"
-          >
-            <Plus className="cursor-pointer w-5 h-5 mr-1" />
-            New Product
-          </Link>
+          <AddCategoryTrigger />
+          <AddProductTrigger categories={categories} />
         </div>
       </div>
 

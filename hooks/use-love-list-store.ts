@@ -1,4 +1,4 @@
-import { Product } from "@/dummy/products";
+import type { Product } from "@/generated/prisma/client";
 import { create } from "zustand";
 
 interface LoveListStore {

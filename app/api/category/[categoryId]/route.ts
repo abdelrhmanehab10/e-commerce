@@ -3,12 +3,13 @@ import { NextResponse } from "next/server";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { categoryId: string } }
+  { params }: { params: Promise<{ categoryId: string }> }
 ) {
   try {
+    const { categoryId } = await params;
     const category = await db.category.delete({
       where: {
-        id: params.categoryId,
+        id: categoryId,
       },
     });
 
@@ -21,13 +22,14 @@ export async function DELETE(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { categoryId: string } }
+  { params }: { params: Promise<{ categoryId: string }> }
 ) {
   try {
-    const { name, description, price, sale } = await req.json();
+    const { categoryId } = await params;
+    const { name, description } = await req.json();
     const category = await db.category.update({
       where: {
-        id: params.categoryId,
+        id: categoryId,
       },
       data: {
         name,

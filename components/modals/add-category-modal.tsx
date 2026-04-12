@@ -1,51 +1,62 @@
+"use client";
+
+import { useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+import { useModal } from "@/hooks/use-modal";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useModal } from "@/hooks/use-modal";
-import { Separator } from "../ui/separator";
+import { Separator } from "@/components/ui/separator";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "../ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import UploadButton from "@/components/upload-button";
 
 const formSchema = z.object({
-  name: z.string().min(3),
+  imageUrl: z.string().min(1, "Category image is required"),
+  name: z.string().min(3, "Category name is too short"),
   description: z.string().min(20).max(200),
 });
 
-const EditCategoryModal = () => {
-  const { isOpen, onClose, data, type } = useModal();
-
-  const openModal = isOpen && type === "edit-category";
-  const categoryId = data && "id" in data ? data.id : undefined;
-
+const AddCategoryModal = () => {
   const router = useRouter();
+  const { isOpen, onClose, type } = useModal();
+  const open = isOpen && type === "add-category";
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      imageUrl: "",
       name: "",
       description: "",
     },
   });
 
+  useEffect(() => {
+    if (!open) {
+      form.reset();
+    }
+  }, [form, open]);
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/category/${categoryId}`, values);
+      await axios.post("/api/category", values);
       form.reset();
       router.refresh();
       onClose();
@@ -53,11 +64,12 @@ const EditCategoryModal = () => {
       console.log(error);
     }
   };
+
   return (
-    <Dialog open={openModal} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="bg-white text-black">
         <DialogHeader className="pt-8">
-          <DialogTitle>Edit Category</DialogTitle>
+          <DialogTitle>Add Category</DialogTitle>
         </DialogHeader>
         <Separator className="bg-foreground" />
         <Form {...form}>
@@ -88,11 +100,21 @@ const EditCategoryModal = () => {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <UploadButton onChange={field.onChange} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button
               type="submit"
               className="w-full bg-[#23A6F0] hover:bg-[#23A6F0]/80 mt-3"
             >
-              Edit
+              Add
             </Button>
           </form>
         </Form>
@@ -101,4 +123,4 @@ const EditCategoryModal = () => {
   );
 };
 
-export default EditCategoryModal;
+export default AddCategoryModal;

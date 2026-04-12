@@ -1,14 +1,22 @@
-import { Product } from "@/dummy/products";
-import { Category } from "@prisma/client";
+import type { Category, Product } from "@/generated/prisma/client";
 import { create } from "zustand";
 
-type ModalType = "edit-product" | "edit-category";
+type AddProductModalData = {
+  categories: Category[];
+};
+
+type ModalType =
+  | "add-category"
+  | "add-product"
+  | "edit-product"
+  | "edit-category";
+type ModalData = Product | Category | AddProductModalData | null;
 
 export interface ModalStore {
   type: ModalType | null;
-  data: Product | Category | null;
+  data: ModalData;
   isOpen: boolean;
-  onOpen: (data: Product | Category, type: ModalType) => void;
+  onOpen: (data: ModalData, type: ModalType) => void;
   onClose: () => void;
 }
 

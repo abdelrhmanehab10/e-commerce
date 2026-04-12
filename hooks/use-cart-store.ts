@@ -1,13 +1,13 @@
-import { Product } from "@prisma/client";
+import type { Product } from "@/generated/prisma/client";
 import { create } from "zustand";
 
 type Item = Product & {
-  quantity?: number;
+  quantity: number;
 };
 
 interface CartStore {
   items: Item[];
-  addItem: (item: Item) => void;
+  addItem: (item: Product) => void;
   removeItem: (itemId: string) => void;
 }
 

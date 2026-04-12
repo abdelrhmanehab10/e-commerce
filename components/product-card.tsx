@@ -7,7 +7,7 @@ import { useCartStore } from "@/hooks/use-cart-store";
 import { Eye, Heart, Plus, Edit, Trash } from "lucide-react";
 import { useLoveListStore } from "@/hooks/use-love-list-store";
 import { useRouter } from "next/navigation";
-import { Product } from "@prisma/client";
+import type { Product } from "@/generated/prisma/client";
 import { CldImage } from "next-cloudinary";
 import { useModal } from "@/hooks/use-modal";
 import axios from "axios";
@@ -66,7 +66,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, dashboard }) => {
             <span
               className={cn(
                 "text-green-500",
-                product.sale && "line-through text-gray-300"
+                product.sale && "line-through text-gray-300",
               )}
             >
               ${product.price}

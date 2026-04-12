@@ -1,7 +1,7 @@
 "use client";
 
 import { useModal } from "@/hooks/use-modal";
-import { Category } from "@prisma/client";
+import type { Category } from "@/generated/prisma/client";
 import axios from "axios";
 import { Edit, Eye, Trash } from "lucide-react";
 import { CldImage } from "next-cloudinary";

@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useCartStore } from "@/hooks/use-cart-store";
 import { useLoveListStore } from "@/hooks/use-love-list-store";
 import { useToast } from "@/components/ui/use-toast";
-import { Product } from "@prisma/client";
+import type { Product } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import { Plus, Heart } from "lucide-react";
 import { CldImage } from "next-cloudinary";
@@ -26,6 +26,7 @@ const SingleProduct: FC<SingleProductProps> = ({ product }) => {
   };
 
   const addLikeHandler = () => {
+    if (!product) return;
     addLike(product);
     toast({ description: "Product Added to Love List" });
   };

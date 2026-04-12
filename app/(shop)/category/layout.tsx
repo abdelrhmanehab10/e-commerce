@@ -1,9 +1,4 @@
-"use client";
-
-import ProductsHeader from "@/components/products-header";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 
 const CategoryLayout = ({ children }: { children: React.ReactNode }) => {
   return (
